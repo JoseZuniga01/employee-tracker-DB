@@ -1,6 +1,8 @@
+const consoleTable = require("console.table");
 const inquirer = require("inquirer");
 const mysql = require("mysql2");
-const consoleTable = require("console.table");
+
+
 
 // connect to sql database 
 
@@ -41,7 +43,7 @@ connection.connect(function(err) {
               "Exit"
               ]
       }
-      
+
   ]).then(function(answers) {
           switch (answers.action) {
   
