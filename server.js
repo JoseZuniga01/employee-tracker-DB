@@ -2,7 +2,7 @@ const inquirer = require("inquirer");
 const mysql = require("mysql2");
 const consoleTable = require("console.table");
 
-// connection
+// connect to sql database 
 
 const connection = mysql.createConnection({
   host: "localhost",
@@ -11,24 +11,22 @@ const connection = mysql.createConnection({
   password: "23723505", 
   database: "employeedb"
 });
-// header
+
+// console log any errors
 connection.connect(function(err) {
     if (err) throw err;
    
     console.log("Connected as ID " + connection.threadId);
-    console.clear();
-    console.log ("   EMPLOYEE DATABASE   ");
     startProcess();
   });
 
-
-    // main menu
+    // main menu promt t ask user what he would like to do today 
 
     function startProcess() {
       inquirer.prompt([
       {
       type: "list",
-      message: "What would you like to do today?",
+      message: "What would you like to do?",
       name: "action",
       choices: [
               "Add A Department",
@@ -43,6 +41,7 @@ connection.connect(function(err) {
               "Exit"
               ]
       }
+      
   ]).then(function(answers) {
           switch (answers.action) {
   
@@ -89,7 +88,9 @@ connection.connect(function(err) {
       })
   };
   
-// functions
+
+
+// add user information 
   function viewEmployees() {
       
       connection.query("SELECT employees.firstName AS First_Name, employees.lastName AS Last_Name, role.title AS Title, role.salary AS Salary, department.name AS Department, CONCAT(e.firstName, ' ' ,e.lastName) AS Manager FROM employees INNER JOIN role on role.id = employees.roleID INNER JOIN department on department.id = role.departmentID LEFT JOIN employees e on employees.managerID = e.id;", 
@@ -104,6 +105,7 @@ connection.connect(function(err) {
   }
   
 
+
   function viewDepatments() {
       connection.query("SELECT department.id AS ID, department.name AS Department FROM department",
       function(err, res) {
@@ -117,6 +119,7 @@ connection.connect(function(err) {
   }
   
 
+
   function viewRoles() {
       connection.query("SELECT role.id AS Dept_ID, role.title AS Title FROM role",
       function(err, res) {
@@ -128,6 +131,7 @@ connection.connect(function(err) {
         startProcess()
     })
   }
+
 
   function viewEmployeesByDepartment() {
     connection.query("SELECT employees.firstName AS First_Name, employees.lastName AS Last_Name, department.name AS Department FROM employees JOIN role ON employees.roleID = role.id JOIN department ON role.departmentID = department.id ORDER BY department.id;", 
@@ -142,6 +146,7 @@ connection.connect(function(err) {
   }
   
 
+
   function viewEmployeesByRole() {
     connection.query("SELECT employees.firstName AS First_Name, employees.lastName AS Last_Name, role.title AS Title FROM employees JOIN role ON employees.roleID = role.id ORDER BY role.id", 
     function(err, res) {
@@ -155,6 +160,7 @@ connection.connect(function(err) {
   }
   
 
+
   let roleArr = [];                                            
   function selectRole() {
     connection.query("SELECT * FROM role", function(err, res) {
@@ -166,6 +172,7 @@ connection.connect(function(err) {
     return roleArr;
   }
   
+
 
   let managersArr = [];
   function selectManager() {
@@ -237,7 +244,9 @@ connection.connect(function(err) {
     })
    }
    function addDepartment() { 
-  
+    
+
+
     inquirer.prompt([
         {
           name: "name",
@@ -264,6 +273,8 @@ connection.connect(function(err) {
         )
     })
   }
+
+
 
   function addRole() { 
     connection.query("SELECT role.title AS Title, role.salary AS Salary FROM role LEFT JOIN department.name AS Department FROM department;",   function(err, res) {
@@ -302,6 +313,8 @@ connection.connect(function(err) {
       });
     });
 }
+
+
 function updateEmployeeRole() {
   connection.query("SELECT employees.lastName, role.title FROM employees JOIN role ON employees.roleID = role.id;", 
   (err, res) => {
