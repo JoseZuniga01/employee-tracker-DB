@@ -1,17 +1,11 @@
 INSERT INTO employees (firstName, lastName, roleID, managerID)
-VALUES ('Jose', 'Zuniga', 1, null);
+VALUES ('Jose', 'Zuniga', 1, 1);
 INSERT INTO employees (firstName, lastName, roleID, managerID)
 VALUES ('Bob', 'Nash', 2, 1);
 INSERT INTO employees (firstName, lastName, roleID, managerID)
-VALUES ('Michael', 'Jordan', 2, 1);
+VALUES ('Michael', 'Jordan', 3, 1);
 INSERT INTO employees (firstName, lastName, roleID, managerID)
-VALUES ('Elon', 'Musk', 4, 1);
-INSERT INTO employees (firstName, lastName, roleID, managerID)
-VALUES ('Tom', 'Cruise', 3, 1);
-INSERT INTO employees (firstName, lastName, roleID, managerID)
-VALUES ('Jeff', 'Bezos', 5, 1);
-INSERT INTO employees (firstName, lastName, roleID, managerID)
-VALUES ('David', 'Blaine', 6, null);
+VALUES ('Tom', 'Cruise', 4, 1);
 
 INSERT INTO department (id, name)
 VALUES (1,"Sales");
@@ -23,12 +17,10 @@ INSERT INTO department (id, name)
 VALUES (4, "Marketing");
 
 INSERT INTO role (title, salary, departmentID)
-VALUES ("Sales Lead", 100000, 1);
+VALUES ("Tech Lead", 165000, 1);
 INSERT INTO role (title, salary, departmentID)
-VALUES ("Tech Lead", 150000, 2);
+VALUES ("Sales Lead", 120000, 2);
 INSERT INTO role (title, salary, departmentID)
-VALUES ("Software Engineer", 120000, 2);
+VALUES ("CMO", 275000, 3);
 INSERT INTO role (title, salary, departmentID)
-VALUES ("Lead Counsel", 125000, 3);
-INSERT INTO role (title, salary, departmentID)
-VALUES ("CMO", 250000, 4);
+VALUES ("Lead Counsel", 175000, 4);
